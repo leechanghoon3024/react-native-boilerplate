@@ -9,62 +9,64 @@
  */
 
 import React from 'react';
-import {
-  Link,
-  Text,
-  HStack,
-  Center,
-  Heading,
-  Switch,
-  useColorMode,
-  NativeBaseProvider,
-  VStack,
-  Code,
-} from 'native-base';
-import NativeBaseIcon from './src/components/NativeBaseIcon';
+import { Box, Button, Center, HStack, Image, NativeBaseProvider, View, VStack } from 'native-base';
+import { WebView } from 'react-native-webview';
+import theme from './src/themes';
+import { Text } from 'native-base';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { ImageBackground } from 'react-native';
+import { Provider } from 'react-redux';
+import { store } from './src/store';
+import RootNavigation from './src/navigation/RootNavigation';
 
-// Color Switch Component
-function ToggleDarkMode() {
-  const {colorMode, toggleColorMode} = useColorMode();
-  return (
-    <HStack space={2} alignItems="center">
-      <Text>Dark</Text>
-      <Switch
-        isChecked={colorMode === 'light'}
-        onToggle={toggleColorMode}
-        aria-label={
-          colorMode === 'light' ? 'switch to dark mode' : 'switch to light mode'
-        }
-      />
-      <Text>Light</Text>
-    </HStack>
-  );
+const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+const Logo = require('./src/assets/logo/recan-colour-logo.png');
+const BackGroundImage = require('./src/assets/background/background1.png');
+function NotificationsScreen({ navigation }) {
+    return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Button onPress={() => navigation.goBack()} title="Go back home" />
+        </View>
+    );
 }
+
+const LogoScreen = () => {
+    return (
+        <ImageBackground style={{ flex: 1 }} source={BackGroundImage} resizeMode={'stretch'}>
+            <Center flex={1} px="3">
+                <Image source={Logo} alt="Alternate Text" width={210} height={60} />
+            </Center>
+        </ImageBackground>
+    );
+};
+
+const TestScreen = () => {
+    return (
+        <Box bg="primary.600" py="4" px="3" my="10" rounded="md" alignSelf="center" width={375} maxWidth="100%">
+            <HStack justifyContent="space-between">
+                <VStack space="2">
+                    <Text fontFamily="Arch" fontWeight={900} fontStyle="normal" fontSize={20}>
+                        Typography
+                    </Text>
+                    <Text fontFamily="Lato" fontWeight={900} fontStyle="normal" fontSize={20}>
+                        Typography
+                    </Text>
+                </VStack>
+            </HStack>
+        </Box>
+    );
+};
+
 const App = () => {
-  return (
-    <NativeBaseProvider>
-      <Center
-        _dark={{bg: 'blueGray.900'}}
-        _light={{bg: 'blueGray.50'}}
-        px={4}
-        flex={1}>
-        <VStack space={5} alignItems="center">
-          <NativeBaseIcon />
-          <Heading size="lg">Welcome to NativeBase</Heading>
-          <HStack space={2} alignItems="center">
-            <Text>Edit</Text>
-            <Code>App.tsx</Code>
-            <Text>and save to reload.</Text>
-          </HStack>
-          <Link href="https://docs.nativebase.io" isExternal>
-            <Text color="primary.500" underline fontSize={'xl'}>
-              Learn NativeBase
-            </Text>
-          </Link>
-          <ToggleDarkMode />
-        </VStack>
-      </Center>
-    </NativeBaseProvider>
-  );
+    return (
+        <NativeBaseProvider theme={theme}>
+            <Provider store={store}>
+                <RootNavigation />
+            </Provider>
+        </NativeBaseProvider>
+    );
 };
 export default App;

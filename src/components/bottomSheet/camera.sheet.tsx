@@ -1,0 +1,110 @@
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { Actionsheet, Text, Box, Heading, HStack, Button, Image, VStack, useToast, Input } from 'native-base';
+import { TouchableOpacity } from 'react-native';
+import DriverList from '../../containers/driver/driver.List';
+import TableDriver from '../../containers/commons/table.driver';
+import InMapList from '../../containers/driver/inMapList';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import CustomInput from '../customInput/defaultInput';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
+interface Props {
+    open: boolean;
+    onHandler: Dispatch<SetStateAction<boolean>>;
+    navigation: any;
+    address: string;
+    code: string;
+    customer: string;
+    getAccept: () => void;
+}
+
+const commentSchema = Yup.object().shape({
+    comment: Yup.string(),
+});
+
+const CameraSheet = ({ open, onHandler, navigation, address, code, customer, getAccept }: Props) => {
+    const toast = useToast();
+
+    const { handleChange, handleBlur, handleSubmit, errors, touched, initialValues, resetForm, values } = useFormik({
+        validationSchema: commentSchema,
+        initialValues: {
+            comment: '',
+        },
+        onSubmit: async (value) => {
+            console.log(value);
+        },
+    });
+
+    const pickResult = () => {
+        navigation.goBack();
+        toast.show({
+            placement: 'top',
+            description: 'Complete',
+            render: () => {
+                return (
+                    <Box justifyContent={'center'} alignContent={'center'} w={'200px'} bg="blue.200" px="2" py="2" rounded="sm" mb={5}>
+                        <Text color={'white.100'} textAlign={'center'}>
+                            Complete!
+                        </Text>
+                    </Box>
+                );
+            },
+        });
+    };
+    return (
+        <Actionsheet isOpen={open} onClose={() => onHandler(false)}>
+            <Actionsheet.Content>
+                <KeyboardAwareScrollView>
+                    <Box p={2} pt={10} alignItems={'center'}>
+                        <Heading fontFamily={'Arch'} fontWeight={500} fontSize={24} mb={3}>
+                            {code}
+                        </Heading>
+                        <Box maxW={'100%'} px={2}>
+                            <VStack w={'100%'}>
+                                <HStack w={'100%'} m={2} p={2}>
+                                    <Box w={'30%'}>
+                                        <Text fontFamily={'Arch'} fontWeight={'700'} fontSize={'16'} color={'blue.100'}>
+                                            Customer
+                                        </Text>
+                                    </Box>
+                                    <Box w={'70%'}>
+                                        <Text fontFamily={'Arch'} fontWeight={'700'} fontSize={'16'} color={'black.100'}>
+                                            {customer}
+                                        </Text>
+                                    </Box>
+                                </HStack>
+                                <HStack w={'100%'} m={2} p={2}>
+                                    <Box w={'30%'}>
+                                        <Text fontFamily={'Arch'} fontWeight={'700'} fontSize={'16'} color={'blue.100'}>
+                                            Address
+                                        </Text>
+                                    </Box>
+                                    <Box w={'70%'}>
+                                        <Text w={'70%'} fontFamily={'Arch'} fontWeight={'700'} fontSize={'16'} color={'black.100'}>
+                                            {address}
+                                        </Text>
+                                    </Box>
+                                </HStack>
+                                <HStack w={'100%'} m={2} p={2} justifyContent={'space-between'}>
+                                    <Button onPress={() => getAccept()} mr={15} w={'30%'} variant={'basicButton'} bg={'blue.200'}>
+                                        <Text fontFamily={'Arch'} fontWeight={'700'} fontSize={'16'} color={'white.100'}>
+                                            Pick
+                                        </Text>
+                                    </Button>
+                                    <Button onPress={() => onHandler(false)} w={'30%'} variant={'basicButton'} bg={'gray.200'}>
+                                        <Text fontFamily={'Arch'} fontWeight={'700'} fontSize={'16'} color={'black.100'}>
+                                            Close
+                                        </Text>
+                                    </Button>
+                                </HStack>
+                            </VStack>
+                        </Box>
+                    </Box>
+                </KeyboardAwareScrollView>
+            </Actionsheet.Content>
+        </Actionsheet>
+    );
+};
+
+export default CameraSheet;
