@@ -19,16 +19,16 @@ const DriverView = () => {
     const SecondRoute = () => <InMapList navigation={navigation} idx={idx} />;
     const initialLayout = { width: Dimensions.get('window').width };
     const renderScene = SceneMap({
-        first: FirstRoute,
-        second: SecondRoute,
+        first: SecondRoute,
+        second: FirstRoute,
     });
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        { key: 'first', title: 'MAP' },
-        { key: 'second', title: 'LIST' },
+        { key: 'first', title: 'LIST' },
+        { key: 'second', title: 'MAP' },
     ]);
-    const renderTabBar = (props) => {
+    const renderTabBar = (props: any) => {
         return (
             <Box mt={5} flexDirection="row" bg={'blue.200'} borderRadius={100}>
                 {props.navigationState.routes.map((route: { title: React.ReactNode }, i: React.SetStateAction<number>) => {

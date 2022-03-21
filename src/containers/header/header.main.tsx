@@ -10,26 +10,28 @@ import { UserParamList } from '../../@types/navigationTypes';
 interface Props {
     navigation: any;
     optional?: string;
+    setOpenLink?: any;
 }
 
 const MainLogo = require('../../assets/icons/mainLogo.png');
-const MainHeader = ({ navigation, optional }: Props) => {
-    const openLink = async (url) => {
+const MainHeader = ({ navigation, optional, setOpenLink }: Props) => {
+    const openLink = async (url: any) => {
         const supported = await Linking.canOpenURL(url);
         if (supported) {
             await Linking.openURL(url);
         }
     };
+    // openLink('https://recan.co')
     return (
-        <Box>
+        <Box mt={'14px'} mx={'14px'}>
             <HStack alignItems={'center'} justifyContent={'space-between'}>
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <MenuIcon />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                    <Image source={MainLogo} alt={'mainLogo'} top={1} />
+                    <Image width={'78px'} h={'21px'} resizeMode={'contain'} source={MainLogo} alt={'mainLogo'} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => openLink('https://recan.co')}>
+                <TouchableOpacity onPress={() => setOpenLink(true)}>
                     <HelpIcon />
                 </TouchableOpacity>
             </HStack>

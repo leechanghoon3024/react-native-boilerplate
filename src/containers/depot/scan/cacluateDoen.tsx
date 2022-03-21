@@ -80,7 +80,7 @@ const CacluateDoen = () => {
                 });
                 navigation.reset({
                     index: 0,
-                    routes: [{ name: 'HomeScreen' }],
+                    routes: [{ name: 'HomeScreen' } as any],
                 });
             } else {
                 toast.show({
@@ -266,6 +266,7 @@ const CacluateDoen = () => {
                             Customer
                         </Text>
                         <Text fontSize={'22px'} fontFamily={'Arch'} color={'black.100'}>
+                            {/*@ts-ignore*/}
                             {`${customer?.userName ?? ''}`}
                         </Text>
                     </Box>

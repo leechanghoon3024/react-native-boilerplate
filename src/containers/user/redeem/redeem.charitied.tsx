@@ -5,10 +5,12 @@ import { Dimensions, StatusBar, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
-import { SceneMap, TabView } from 'react-native-tab-view';
+import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 import CharityList from './charity.list';
 import useAxiosServices from '../../../hooks/axiosHooks';
 import { CharityListTypes } from '../../../@types/charity.types';
+import CustomeTab from '../../../components/customeTab';
+import { Ar16Sb } from '../../../themes/font.style';
 const sampleImage = require('../../../assets/sample-image.png');
 const sampleImage2 = require('../../../assets/sample2.png');
 
@@ -23,7 +25,7 @@ const sampleData2 = [{ title: 'Bottles for Brushies', image: sampleImage2, subTi
 const RedeemCharitied = () => {
     const navigation = useNavigation();
     const user = useSelector((state: RootState) => state.auth.user);
-    const FirstRoute = () => <CharityList list={myData} />;
+    const FirstRoute = () => <CharityList list={myData} my={true} />;
     const SecondRoute = () => <CharityList list={data} />;
     const initialLayout = { width: Dimensions.get('window').width };
     const renderScene = SceneMap({
@@ -65,46 +67,42 @@ const RedeemCharitied = () => {
         }
     };
 
-    const renderTabBar = (props) => {
-        const inputRange = props.navigationState.routes.map((x, i) => i);
+    const renderTabBar = (props: any) => {
         return (
-            <Box flexDirection="row" bg={'blue.200'} borderRadius={100}>
-                {props.navigationState.routes.map((route: { title: React.ReactNode }, i: React.SetStateAction<number>) => {
-                    const color = index === i ? '#222' : '#fff';
-                    const bg = index === i ? 'white.100' : 'blue.200';
-
-                    return (
-                        <Box
-                            bg={bg}
-                            borderRadius={100}
-                            borderWidth={3}
-                            borderColor={'blue.200'}
-                            flex={1}
-                            alignItems="center"
-                            p="2"
-                            cursor="pointer"
-                        >
-                            <Pressable
-                                onPress={() => {
-                                    console.log(i);
-                                    setIndex(i);
-                                }}
-                            >
-                                <Text fontSize={16} fontFamily={'Arch'} fontWeight={400} color={color}>
-                                    {route.title}
-                                </Text>
-                            </Pressable>
-                        </Box>
-                    );
-                })}
-            </Box>
+            <TabBar
+                {...props}
+                style={{
+                    marginHorizontal: 8,
+                    borderRadius: 100,
+                    height: 38,
+                    shadowOffset: { height: 0, width: 0 },
+                    shadowColor: '#1C6EBA',
+                    backgroundColor: '#1C6EBA',
+                }}
+                tabStyle={{
+                    shadowOffset: { height: 0, width: 0 },
+                    shadowColor: '#1C6EBA',
+                    borderWidth: 0,
+                }}
+                pressColor={'#1C6EBA'}
+                //@ts-ignore
+                renderIndicator={(props) => <CustomeTab {...props} />}
+                renderLabel={({ route, focused }) => (
+                    <Box flex={1} bottom={0.5}>
+                        <Text {...Ar16Sb} alignSelf={'center'} color={focused ? 'gray.300' : '#fff'}>
+                            {route.title}
+                        </Text>
+                    </Box>
+                )}
+            />
         );
     };
 
     return (
-        <Box flex={1}>
+        <Box flex={1} bg={'white.100'}>
+            <StatusBar barStyle={'light-content'} />
             <Box bg={'blue.200'}>
-                <Box safeArea p={2}>
+                <Box safeAreaTop p={2} pb={4}>
                     <HeaderOnlyBack navigation={navigation} />
                     <Box mt={8} flexDirection={'row'} px={6} w={'100%'} justifyContent={'space-between'} alignItems={'center'}>
                         <Text fontWeight={700} fontSize={'30px'} fontFamily={'Lato'} color={'white.100'}>
@@ -116,7 +114,7 @@ const RedeemCharitied = () => {
                     </Box>
                 </Box>
             </Box>
-            <Box flex={1} p={4}>
+            <Box flex={1} p={4} px={4}>
                 <TabView
                     navigationState={{ index, routes }}
                     renderScene={renderScene}

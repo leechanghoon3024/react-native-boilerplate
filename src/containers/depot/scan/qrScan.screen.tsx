@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Box, Button, HStack, Image, Text } from 'native-base';
-import PickSheet from '../../components/bottomSheet/pick.sheet';
+
 import { CameraScreen } from 'react-native-camera-kit';
 import { Alert, TouchableOpacity } from 'react-native';
 import useAxiosServices from '../../../hooks/axiosHooks';
@@ -14,11 +14,8 @@ const QrScanScreen = () => {
     const [sheetOpen, setSheetOpen] = useState(false);
     const cameraRef = useRef<CameraScreen>();
     const { axiosService } = useAxiosServices();
-    const goToHandler = () => {
-        setSheetOpen((p) => !p);
-        navigation.navigate('BagScanScreen', { code: 'AAAA-002' });
-    };
-    const getCode = async (v) => {
+
+    const getCode = async (v: any) => {
         setCode(v);
         setSheetOpen(true);
     };
@@ -28,7 +25,7 @@ const QrScanScreen = () => {
             const api = await axiosService.post('/pick/depot/codeCheck', { code });
             const { status, data } = api.data;
             if (status) {
-                navigation.navigate('BagScanScreen', { code, idx: data });
+                navigation.navigate('BagScanScreen' as never, { code, idx: data } as never);
             } else {
                 Alert.alert(data);
             }
@@ -36,6 +33,7 @@ const QrScanScreen = () => {
             console.log(e);
         }
     };
+
     return (
         <>
             <Box flex={1} my={2}>
@@ -47,6 +45,7 @@ const QrScanScreen = () => {
                             </TouchableOpacity>
                         </HStack>
                     </Box>
+                    {/*@ts-ignore*/}
                     <CameraScreen
                         scanBarcode={true}
                         showFrame={true}

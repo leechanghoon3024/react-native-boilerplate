@@ -5,11 +5,13 @@ import ProfilePage from '../containers/auth/profile.page';
 import DriverCollection from '../containers/driver/collection/driver.collection';
 import ScanFind from '../containers/depot/scan/scan.find';
 import PasswordChange from '../containers/auth/password.change';
+import ReportCollection from '../containers/user/collections/report.collection';
 
 export type UserParamList = {
     HomeScreen: undefined;
     DetailScreen: { idx: number };
     CharityDetail: { idx: number };
+    ReportCollection: { idx: number };
 };
 
 export interface UserStackParamList<RouterName extends keyof UserParamList> {
@@ -69,7 +71,7 @@ export type AuthParamList = {
     SingUpScreen: undefined;
     SingInScreen: undefined;
     LogoScreen: undefined;
-    EmailValidate: { email: string; code: string; password: string };
+    EmailValidate: { email: string; code: string; password: string; accountType: string };
     EmailComplete: undefined;
     ProfilePage: undefined;
     PassWordFind: undefined;

@@ -1,11 +1,10 @@
 import React from 'react';
-import { addressListType } from '../../@types/userTypes';
+
 import { Box, Button, Heading, Image, Popover, Text, VStack } from 'native-base';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import HeaderBack from '../../header/header.back';
-import AddressCard from '../../../components/card/address.card';
 import { useNavigation } from '@react-navigation/native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { addressListType } from '../../../@types/userTypes';
 
 interface Props {
     address: addressListType;

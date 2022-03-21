@@ -2,6 +2,9 @@ import React, { forwardRef } from 'react';
 import { Box, Input, IInputProps, Text, FormControl, VStack, useTheme, Select, CheckIcon } from 'native-base';
 import ErrorHelp from './error.help';
 import ErrorIcon from '../../assets/icons/error.icon';
+import { Ar18SbBlack } from '../../themes/font.style';
+import ArrowDown from '../../assets/icons/arrow.down';
+import ArrowUp from '../../assets/icons/arrow.up';
 
 interface Props extends IInputProps {
     touched?: boolean | any;
@@ -32,17 +35,28 @@ const SelectInput2 = forwardRef<typeof Input, Props>(
                     <Box w={'100%'} p={1}>
                         <VStack alignItems="flex-start" space={4}>
                             <Select
+                                {...Ar18SbBlack}
+                                dropdownCloseIcon={
+                                    <Box mr={'10px'}>
+                                        <ArrowDown />
+                                    </Box>
+                                }
+                                dropdownOpenIcon={
+                                    <Box mr={'10px'}>
+                                        <ArrowUp />
+                                    </Box>
+                                }
                                 selectedValue={String(value)}
                                 minWidth="200"
                                 accessibilityLabel="Choose Gender"
                                 placeholder={props.placeholder}
                                 borderWidth={0}
                                 width={'100%'}
-                                height={'40px'}
-                                px={2}
+                                height={50}
+                                px={4}
                                 _selectedItem={{
-                                    bg: 'blue.100',
-                                    endIcon: <CheckIcon size="5" />,
+                                    bg: 'gray.100',
+                                    endIcon: <CheckIcon size="5" color={'#1C6EBA'} />,
                                 }}
                                 onValueChange={(itemValue) => setFieldValue(valueName, itemValue)}
                             >

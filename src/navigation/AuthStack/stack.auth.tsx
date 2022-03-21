@@ -14,14 +14,59 @@ import MapTest from '../../containers/driver/map.test';
 import PasswordFind from '../../containers/auth/password.find';
 import PasswordValidate from '../../containers/auth/password.validatae';
 import PasswordChange from '../../containers/auth/password.change';
+import DriverLogin from '../../containers/auth/driver.login';
+import DriverSignup from '../../containers/auth/driver.signup';
+import DepotLogin from '../../containers/auth/depot.login';
 
 const Stack = createNativeStackNavigator<AuthParamList>();
 
 const StackAuth = () => {
     return (
         <Stack.Navigator initialRouteName={'LoginSelect'}>
+            {/*<Stack.Screen name={'LoginSelect'} component={DepotLogin} options={{ headerShown: false }} />*/}
+            {/*<Stack.Screen name={'SingUpScreen'} component={DriverSignup} options={{ headerShown: false }} />*/}
+
             <Stack.Screen name={'LoginSelect'} component={LoginSelectScreen} options={{ headerShown: false }} />
             <Stack.Screen name={'SingUpScreen'} component={LoginSingUp} options={{ headerShown: false }} />
+
+            <Stack.Screen name={'SingInScreen'} component={LoginSignIn} options={{ headerShown: false }} />
+            <Stack.Screen name={'LogoScreen'} component={LogoScreen} options={{ headerShown: false }} />
+            <Stack.Screen name={'EmailValidate'} component={EmailValidate} options={{ headerShown: false }} />
+            <Stack.Screen name={'EmailComplete'} component={EmailComplete} options={{ headerShown: false }} />
+            <Stack.Screen name={'ProfilePage'} component={ProfilePage} options={{ headerShown: false }} />
+            <Stack.Screen name={'PassWordFind'} component={PasswordFind} options={{ headerShown: false }} />
+            <Stack.Screen name={'PasswordValidate'} component={PasswordValidate} options={{ headerShown: false }} />
+            <Stack.Screen name={'PasswordChange'} component={PasswordChange} options={{ headerShown: false }} />
+        </Stack.Navigator>
+    );
+};
+
+const DriverAuth = () => {
+    return (
+        <Stack.Navigator initialRouteName={'LoginSelect'}>
+            {/*<Stack.Screen name={'LoginSelect'} component={DepotLogin} options={{ headerShown: false }} />*/}
+            {/*<Stack.Screen name={'SingUpScreen'} component={DriverSignup} options={{ headerShown: false }} />*/}
+
+            <Stack.Screen name={'LoginSelect'} component={DriverLogin} options={{ headerShown: false }} />
+            <Stack.Screen name={'SingUpScreen'} component={DriverSignup} options={{ headerShown: false }} />
+
+            <Stack.Screen name={'SingInScreen'} component={LoginSignIn} options={{ headerShown: false }} />
+            <Stack.Screen name={'LogoScreen'} component={LogoScreen} options={{ headerShown: false }} />
+            <Stack.Screen name={'EmailValidate'} component={EmailValidate} options={{ headerShown: false }} />
+            <Stack.Screen name={'EmailComplete'} component={EmailComplete} options={{ headerShown: false }} />
+            <Stack.Screen name={'ProfilePage'} component={ProfilePage} options={{ headerShown: false }} />
+            <Stack.Screen name={'PassWordFind'} component={PasswordFind} options={{ headerShown: false }} />
+            <Stack.Screen name={'PasswordValidate'} component={PasswordValidate} options={{ headerShown: false }} />
+            <Stack.Screen name={'PasswordChange'} component={PasswordChange} options={{ headerShown: false }} />
+        </Stack.Navigator>
+    );
+};
+
+const DepotAuth = () => {
+    return (
+        <Stack.Navigator initialRouteName={'LoginSelect'}>
+            <Stack.Screen name={'LoginSelect'} component={DepotLogin} options={{ headerShown: false }} />
+
             <Stack.Screen name={'SingInScreen'} component={LoginSignIn} options={{ headerShown: false }} />
             <Stack.Screen name={'LogoScreen'} component={LogoScreen} options={{ headerShown: false }} />
             <Stack.Screen name={'EmailValidate'} component={EmailValidate} options={{ headerShown: false }} />

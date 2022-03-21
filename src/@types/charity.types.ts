@@ -7,7 +7,7 @@ export interface CharityListTypes {
 
     content: string | null;
 
-    fund: number | null;
+    fund: number;
 
     userFund: number | null;
 

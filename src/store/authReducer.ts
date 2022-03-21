@@ -46,9 +46,13 @@ export const authSlice = createSlice({
             const { credit } = action.payload;
             state.user = { ...state.user, credit } as any;
         },
+        tokenSetting: (state, action) => {
+            const appToken = action.payload;
+            state.appToken = appToken;
+        },
     },
 });
 
-export const { loginAction, logoutAction, profileSetting, addressChange, payoutChange, creditChange } = authSlice.actions;
+export const { loginAction, logoutAction, profileSetting, addressChange, payoutChange, creditChange, tokenSetting } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -8,6 +8,7 @@ import DetailSheet from '../../components/bottomSheet/detail.sheet';
 import useAxiosServices from '../../hooks/axiosHooks';
 import { DriverParamList } from '../../@types/navigationTypes';
 import CameraSheet from '../../components/bottomSheet/camera.sheet';
+import BackIcon from '../../assets/icons/back.icon';
 
 const LeftArrow = require('../../assets/icons/back-white.png');
 const CameraView = () => {
@@ -76,7 +77,7 @@ const CameraView = () => {
         } catch (e) {}
     };
 
-    const getCode = async (v) => {
+    const getCode = async (v: any) => {
         setCode(v);
         setSheetOpen(true);
     };
@@ -85,10 +86,10 @@ const CameraView = () => {
         <>
             <Box flex={1} my={2}>
                 <Box w={'100%'} h={'100%'}>
-                    <Box safeArea safeAreaBottom={0} bg={'blue.200'}>
+                    <Box safeAreaTop bg={'blue.200'} px={2} pb={2}>
                         <HStack alignItems={'center'} justifyContent={'space-between'}>
                             <TouchableOpacity onPress={() => navigation.goBack()}>
-                                <Image source={LeftArrow} alt={'leftArrow'} />
+                                <BackIcon color={'#fff'} />
                             </TouchableOpacity>
                             <Box flexDirection={'row'} alignItems={'center'}>
                                 {/*{step === 5 && (*/}
@@ -101,6 +102,7 @@ const CameraView = () => {
                             </Box>
                         </HStack>
                     </Box>
+                    {/*@ts-ignore*/}
                     <CameraScreen
                         scanBarcode={true}
                         showFrame={true}

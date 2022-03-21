@@ -12,9 +12,7 @@ const DriverPickScreen = () => {
             <Text mt={4} fontWeight={700} fontSize={'32px'} fontFamily={'Arch'}>
                 Collections
             </Text>
-            <Box px={2} flex={1} mt={4}>
-                <TabDriver />
-            </Box>
+
             <Box
                 alignSelf={'center'}
                 justifyItems={'center'}

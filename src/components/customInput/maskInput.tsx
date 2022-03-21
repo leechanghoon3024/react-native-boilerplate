@@ -2,6 +2,8 @@ import React, { forwardRef } from 'react';
 import { Box, Input, IInputProps, Text, useTheme } from 'native-base';
 import RNMASKINPUT from 'react-native-mask-input';
 import ErrorIcon from '../../assets/icons/error.icon';
+
+// @ts-ignore
 interface Props extends IInputProps {
     label: string;
     touched?: boolean | any;
@@ -9,10 +11,12 @@ interface Props extends IInputProps {
     value: any;
     type: any[];
     setFieldValue: any;
+    bg?: string;
+    setValue: any;
 }
 
 const MaskInput = forwardRef<typeof RNMASKINPUT, Props>(
-    ({ setFieldValue, type, label, value, setValue, touched, error, ...props }, ref) => {
+    ({ bg, setFieldValue, type, label, value, setValue, touched, error, ...props }, ref) => {
         const theme = useTheme();
         return (
             <>
@@ -27,32 +31,33 @@ const MaskInput = forwardRef<typeof RNMASKINPUT, Props>(
                     px={2}
                 >
                     <Box w={'100%'} p={1}>
-                        <Box px={2} position={'absolute'} left={3} top={-14} bg={'gray.100'}>
+                        <Box px={2} position={'absolute'} left={3} top={-14} bg={bg ?? 'gray.100'}>
                             <Text fontFamily={'Arch'} fontWeight={400} fontSize={17} color={'blue.200'}>
                                 {label}
                             </Text>
                         </Box>
-                        <Box px={2}>
+                        <Box px={4}>
+                            {/*@ts-ignore*/}
                             <RNMASKINPUT
+                                placeholderFillCharacter="0"
                                 keyboardType="numeric"
                                 mask={type}
                                 value={value}
+                                placeholderTextColor={'#A6A6A6'}
                                 showObfuscatedValue
                                 onChangeText={(masked, unmasked, obfuscated) => {
-                                    // assuming you typed "1234123412341234":
-
-                                    console.log(masked); // "1234 1234 1234 1234"
-                                    console.log(unmasked); // "1234123412341234"
-                                    console.log(obfuscated); // "1234 #### #### 1234"
                                     setFieldValue('mobile', masked);
                                 }}
                                 style={{
                                     backgroundColor: '#00ff0000',
                                     width: '100%',
                                     height: 50,
+                                    fontSize: 18,
+                                    fontFamily: 'Archivo-Bold',
                                 }}
                                 {...{ ref }}
                                 {...props}
+                                placeholder={''}
                             />
                         </Box>
                     </Box>

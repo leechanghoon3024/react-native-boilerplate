@@ -1,7 +1,9 @@
 import React, { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, ViewStyle, Text } from 'react-native';
-import { Box, FlatList, Image, View } from 'native-base';
+import { StyleSheet, TouchableOpacity, ViewStyle, Text } from 'react-native';
+import { Box, FlatList, Image, View, Input, ScrollView } from 'native-base';
 import { PredictionType } from './google.search';
+import SearchIcon from '../../assets/icons/search.icon';
+import { Ar18SbBlack } from '../../themes/font.style';
 
 interface Props {
     value: string;
@@ -37,35 +39,51 @@ const GoogleInput: FunctionComponent<Props> = (props) => {
             width: inputSize.width,
         };
         return (
-            <FlatList
-                mt={2}
-                data={predictions}
-                renderItem={({ item, index }) => {
-                    return (
-                        <TouchableOpacity style={predictionRow} onPress={() => onPredictionTapped(item.place_id, item.description)}>
-                            <Image mr={4} w={30} h={30} source={mIcon} alt={'mIcon'} />
-                            <Box flex={1} py={6} flexDirection={'row'} alignItems={'center'} borderBottomWidth={0.5} borderColor={'C4C4C4'}>
-                                <Box>
-                                    <Text numberOfLines={2}>{item.description}</Text>
+            <>
+                <FlatList
+                    mt={2}
+                    data={predictions}
+                    contentContainerStyle={{ height: 500 }}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <TouchableOpacity style={predictionRow} onPress={() => onPredictionTapped(item.place_id, item.description)}>
+                                <Image mr={4} w={30} h={30} source={mIcon} alt={'mIcon'} />
+                                <Box
+                                    flex={1}
+                                    py={6}
+                                    flexDirection={'row'}
+                                    alignItems={'center'}
+                                    borderBottomWidth={0.5}
+                                    borderColor={'C4C4C4'}
+                                >
+                                    <Box>
+                                        <Text numberOfLines={2}>{item.description}</Text>
+                                    </Box>
                                 </Box>
-                            </Box>
-                        </TouchableOpacity>
-                    );
-                }}
-                keyExtractor={(item) => item.place_id}
-                keyboardShouldPersistTaps="handled"
-                style={[predictionsContainer]}
-            />
+                            </TouchableOpacity>
+                        );
+                    }}
+                    keyExtractor={(item) => item.place_id}
+                    keyboardShouldPersistTaps="handled"
+                    style={[predictionsContainer]}
+                />
+                <Box mb={400} />
+            </>
         );
     };
 
     return (
         <View style={[container, { ...passedStyles }]}>
-            <Box flexDirection={'row'} style={[inputStyle, inputBottomRadius]}>
-                <Image source={sIcon} alt={'sIcon'} mr={2} />
-                <TextInput
-                    placeholder="Enter a address"
-                    placeholderTextColor="gray"
+            <Box w={'100%'} bg={'whtie.100'} flexDirection={'row'} style={[inputStyle, inputBottomRadius]}>
+                <SearchIcon />
+                <Input
+                    {...Ar18SbBlack}
+                    ml={2}
+                    w={'90%'}
+                    numberOfLines={2}
+                    borderWidth={0}
+                    placeholder="Enter an address"
+                    placeholderTextColor="gray.200"
                     value={value}
                     onChangeText={onChangeText}
                     returnKeyType="search"
@@ -89,15 +107,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         paddingVertical: 8,
         paddingHorizontal: 16,
-        backgroundColor: '#F3F3F3',
+        backgroundColor: '#fff',
         borderRadius: 30,
         color: 'black',
         fontSize: 16,
     },
-    predictionsContainer: {
-        borderBottomLeftRadius: 28,
-        borderBottomRightRadius: 28,
-    },
+    predictionsContainer: {},
     predictionRow: {
         alignItems: 'center',
         flexDirection: 'row',

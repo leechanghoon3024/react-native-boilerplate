@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Box, Center, Image, VStack } from 'native-base';
+import { Text, Box, Center, Image, VStack, StatusBar } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 
 const CheckImage = require('../../../assets/icons/checked.png');
@@ -7,6 +7,7 @@ const DoneAgree = () => {
     const navigation = useNavigation();
     return (
         <Center p={4}>
+            <StatusBar barStyle={'dark-content'} />
             <VStack justifyContent={'center'} alignItems={'center'} space={4}>
                 <Image source={CheckImage} alt={'houseImage'} mb={10} />
                 <Box justifyContent={'center'} alignItems={'center'}>

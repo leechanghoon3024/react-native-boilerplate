@@ -1,17 +1,22 @@
 import React, { forwardRef } from 'react';
-import { Box, Input, IInputProps, Text, FormControl, VStack, useTheme, Select, CheckIcon } from 'native-base';
+import { Box, Input, IInputProps, Text, FormControl, VStack, useTheme, Select, CheckIcon, ArrowUpIcon } from 'native-base';
 import ErrorHelp from './error.help';
 import ErrorIcon from '../../assets/icons/error.icon';
+import { Ar18M, Ar18SbBlack } from '../../themes/font.style';
+import ArrowDown from '../../assets/icons/arrow.down';
+import ArrowUp from '../../assets/icons/arrow.up';
 
 interface Props extends IInputProps {
+    bg?: string;
     touched?: boolean | any;
     error?: string | any;
     value: any;
     setFieldValue: any;
     valueName: string;
+    label: any;
 }
 
-const SelectInput = forwardRef<typeof Input, Props>(({ valueName, setFieldValue, label, value, touched, error, ...props }, ref) => {
+const SelectInput = forwardRef<typeof Input, Props>(({ bg, valueName, setFieldValue, label, value, touched, error, ...props }, ref) => {
     const theme = useTheme();
     return (
         <>
@@ -26,13 +31,24 @@ const SelectInput = forwardRef<typeof Input, Props>(({ valueName, setFieldValue,
                 px={2}
             >
                 <Box w={'100%'} p={1}>
-                    <Box px={2} position={'absolute'} left={3} top={-14} bg={'gray.100'}>
-                        <Text fontFamily={'Arch'} fontWeight={400} fontSize={17} color={'blue.200'}>
+                    <Box px={2} position={'absolute'} left={3} top={-14} bg={bg ?? 'gray.100'}>
+                        <Text {...Ar18M} color={'blue.200'}>
                             {label}
                         </Text>
                     </Box>
                     <VStack alignItems="flex-start" space={4}>
                         <Select
+                            {...Ar18SbBlack}
+                            dropdownCloseIcon={
+                                <Box mr={'10px'}>
+                                    <ArrowDown />
+                                </Box>
+                            }
+                            dropdownOpenIcon={
+                                <Box mr={'10px'}>
+                                    <ArrowUp />
+                                </Box>
+                            }
                             selectedValue={String(value)}
                             minWidth="200"
                             accessibilityLabel="Choose Gender"
@@ -40,12 +56,13 @@ const SelectInput = forwardRef<typeof Input, Props>(({ valueName, setFieldValue,
                             borderWidth={0}
                             width={'100%'}
                             height={50}
-                            px={2}
+                            px={4}
                             _selectedItem={{
-                                bg: 'blue.100',
-                                endIcon: <CheckIcon size="5" />,
+                                bg: 'gray.100',
+                                endIcon: <CheckIcon size="5" color={'#1C6EBA'} />,
                             }}
                             mt={1}
+                            defaultValue={'Gender'}
                             onValueChange={(itemValue) => setFieldValue(valueName, itemValue)}
                         >
                             <Select.Item label="Female" value="2" />

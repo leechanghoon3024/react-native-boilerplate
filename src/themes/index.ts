@@ -32,6 +32,9 @@ const theme = extendTheme({
     },
     fontConfig: {
         Arch: {
+            50: {
+                normal: 'Archivo-Regular',
+            },
             100: {
                 normal: 'Archivo-Medium',
             },
@@ -103,6 +106,19 @@ const theme = extendTheme({
                         width: '100%',
                     };
                 },
+                dButton: ({ colorScheme }: any) => {
+                    return {
+                        _pressed: { opacity: 50 },
+                        bg: `${colorScheme}`,
+                        rounded: 'full',
+                        height: '56px',
+                        maxW: '450px',
+                        width: '100%',
+                        _disabled: {
+                            bg: 'gray.200',
+                        },
+                    };
+                },
                 shadowBasic: ({ colorScheme }: any) => {
                     return {
                         _pressed: { opacity: 50 },
@@ -111,7 +127,7 @@ const theme = extendTheme({
                         height: '56px',
                         maxW: '450px',
                         width: '100%',
-                        shadow: 9,
+                        shadow: 6,
                         _disabled: {
                             bg: 'gray.200',
                         },

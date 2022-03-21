@@ -37,7 +37,7 @@ const TabDriver = ({ readyList, comList }: Props) => {
         ]);
     }, [readyList, comList]);
 
-    const renderTabBar = (props) => {
+    const renderTabBar = (props: any) => {
         return (
             <Box flexDirection="row" bg={'blue.200'} borderRadius={100} mb={4}>
                 {props.navigationState.routes.map((route: { title: React.ReactNode }, i: React.SetStateAction<number>) => {

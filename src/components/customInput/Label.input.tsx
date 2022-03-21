@@ -2,15 +2,19 @@ import React, { forwardRef } from 'react';
 import { Box, Input, IInputProps, Text, FormControl, VStack, useTheme } from 'native-base';
 import ErrorHelp from './error.help';
 import ErrorIcon from '../../assets/icons/error.icon';
+import { Ar18M, Ar18SbBlack } from '../../themes/font.style';
 
 interface Props extends IInputProps {
+    bg?: string;
     touched?: boolean | any;
     error?: string | any;
     value: any;
     label: string;
+    color?: string;
+    inter?: any;
 }
 
-const LabelInput = forwardRef<typeof Input, Props>(({ label, value, touched, error, ...props }, ref) => {
+const LabelInput = forwardRef<typeof Input, Props>(({ bg, inter, color, label, value, touched, error, ...props }, ref) => {
     const theme = useTheme();
     return (
         <>
@@ -25,13 +29,16 @@ const LabelInput = forwardRef<typeof Input, Props>(({ label, value, touched, err
                 px={2}
             >
                 <Box w={'100%'} p={1}>
-                    <Box px={2} position={'absolute'} left={3} top={-14} bg={'gray.100'}>
-                        <Text fontFamily={'Arch'} fontWeight={400} fontSize={17} color={'blue.200'}>
+                    <Box px={2} position={'absolute'} left={3} top={-14} bg={bg ?? 'gray.100'}>
+                        <Text {...Ar18M} color={color ?? 'blue.200'}>
                             {label}
                         </Text>
                     </Box>
                     <Box>
                         <Input
+                            {...Ar18SbBlack}
+                            ml={'10px'}
+                            onPressIn={() => (inter ? inter() : null)}
                             backgroundColor={'#00ff0000'}
                             value={value}
                             borderWidth={0}
@@ -41,6 +48,7 @@ const LabelInput = forwardRef<typeof Input, Props>(({ label, value, touched, err
                             size="lg"
                             {...{ ref }}
                             {...props}
+                            placeholder={''}
                         />
                     </Box>
                 </Box>

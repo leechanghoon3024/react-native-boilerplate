@@ -1,14 +1,14 @@
 import React from 'react';
 import { Button, View, Text, Box, VStack, Center, Divider, Image } from 'native-base';
 import { DriverStackParamList } from '../../@types/navigationTypes';
-import { ImageBackground, TouchableOpacity } from 'react-native';
+import { ImageBackground, TouchableOpacity, Image as RNImage } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerActions } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { logoutAction } from '../../store/authReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const BackGround = require('../../assets/background/driver-background.png');
+const BackGround = require('../../assets/background/Sidebar_background.png');
 const DriverLogo = require('../../assets/icons/driver-logo.png');
 const SideBarDriver = () => {
     const user = useSelector((state: RootState) => state.auth.user);
@@ -25,14 +25,15 @@ const SideBarDriver = () => {
     };
     return (
         <Box style={{ flex: 1 }}>
-            <ImageBackground source={BackGround} resizeMode={'stretch'}>
-                <Box p={4} px={6}>
-                    <Box safeArea justifyContent={'flex-end'} alignItems={'flex-end'}>
-                        <Image source={DriverLogo} alt={'driver'} />
+            <RNImage source={BackGround} style={{ resizeMode: 'stretch', width: 300, height: 500, position: 'absolute', zIndex: 1 }} />
+            <Box zIndex={2}>
+                <Box py={0} pt={'70px'} px={8}>
+                    <Box mb={10} justifyContent={'flex-end'} alignItems={'flex-end'}>
+                        <Image h={'50px'} w={'100px'} source={DriverLogo} alt={'driver'} />
                     </Box>
                     <Box>
                         <Box>
-                            <Text width={'80%'} fontWeight={'700'} fontSize={'31px'} fontFamily={'Arch'} color={'white.100'}>
+                            <Text fontWeight={700} fontSize={'31px'} fontFamily={'Lato'} color={'white.100'}>
                                 {`Hi, ${user?.userName}!`}
                             </Text>
                             <Text fontWeight={'500'} fontSize={'23px'} fontFamily={'Lato'} color={'gray.200'}></Text>
@@ -44,13 +45,13 @@ const SideBarDriver = () => {
                         </Box>
                     </Box>
                 </Box>
-            </ImageBackground>
+            </Box>
 
-            <Box flex={1}>
-                <VStack space={2}>
+            <Box flex={1} zIndex={2} bg={'white.100'}>
+                <VStack>
                     <Box px={10} py={5}>
                         <TouchableOpacity onPress={() => goToHandler('PickList')}>
-                            <Text fontWeight={500} fontSize={'20px'} fontFamily={'Arch'} color={'black.100'}>
+                            <Text fontWeight={700} fontSize={'21px'} fontFamily={'Arch'} color={'black.300'}>
                                 Collections
                             </Text>
                         </TouchableOpacity>
@@ -58,21 +59,21 @@ const SideBarDriver = () => {
                     <Divider />
                     <TouchableOpacity onPress={() => goToHandler('ProfileDriver')}>
                         <Box px={10} py={5} justifyContent={'space-between'} flexDirection={'row'}>
-                            <Text fontWeight={100} fontSize={'18px'} fontFamily={'Arch'} color={'black.100'}>
+                            <Text fontWeight={100} fontSize={'21px'} fontFamily={'Arch'} color={'gray.300'}>
                                 Profile
                             </Text>
                         </Box>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => goToHandler('HistoryScreen')}>
                         <Box px={10} py={5} justifyContent={'space-between'} flexDirection={'row'}>
-                            <Text fontWeight={100} fontSize={'18px'} fontFamily={'Arch'} color={'black.100'}>
+                            <Text fontWeight={100} fontSize={'21px'} fontFamily={'Arch'} color={'gray.300'}>
                                 History
                             </Text>
                         </Box>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => goToHandler('CompleteList')}>
                         <Box px={10} py={5} justifyContent={'space-between'} flexDirection={'row'}>
-                            <Text fontWeight={100} fontSize={'18px'} fontFamily={'Arch'} color={'black.100'}>
+                            <Text fontWeight={100} fontSize={'21px'} fontFamily={'Arch'} color={'gray.300'}>
                                 Help
                             </Text>
                         </Box>
@@ -80,11 +81,11 @@ const SideBarDriver = () => {
                 </VStack>
             </Box>
             <Divider />
-            <Box safeArea p={4} px={6}>
+            <Box safeAreaBottom p={4} px={6} pb={10}>
                 <TouchableOpacity onPress={() => logOut()}>
                     <Box justifyContent={'space-between'} flexDirection={'row'}>
-                        <Text fontWeight={100} fontSize={'18px'} fontFamily={'Arch'} color={'black.100'}>
-                            Sing out
+                        <Text fontWeight={600} fontSize={'18px'} fontFamily={'Arch'} color={'gray.300'}>
+                            Sign out
                         </Text>
                     </Box>
                 </TouchableOpacity>

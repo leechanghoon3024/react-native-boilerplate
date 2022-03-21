@@ -37,7 +37,7 @@ const AddressSheet = ({ open, setOpen, addressChange }: Props) => {
         }
     };
 
-    const mainSelect = async (value) => {
+    const mainSelect = async (value: any) => {
         try {
             addressChange(value);
             setOpen(false);

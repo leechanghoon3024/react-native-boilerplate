@@ -10,6 +10,7 @@ import SelectAccountSheet from '../../components/bottomSheet/selectAccount.sheet
 import PickSheet from '../../components/bottomSheet/pick.sheet';
 import useAxiosServices from '../../hooks/axiosHooks';
 import { collectionTypes } from '../../@types/collection.types';
+// @ts-ignore
 import polyline from '@mapbox/polyline';
 import Geolocation from 'react-native-geolocation-service';
 
@@ -24,7 +25,7 @@ const DriverMap = ({ idx }: Props) => {
     const [sheetOpen, setSheetOpen] = useState(false);
     const [list, setList] = useState<collectionTypes[]>([]);
     const [line, setLine] = useState([]);
-
+    const [loading, setLoading] = useState(false);
     const [location, setLocation] = useState({
         latitude: 37.78825,
         longitude: -122.4324,
@@ -49,6 +50,7 @@ const DriverMap = ({ idx }: Props) => {
             },
             { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
         );
+        setLoading(true);
     };
 
     useEffect(() => {
@@ -61,7 +63,7 @@ const DriverMap = ({ idx }: Props) => {
             const { status, pickList } = api.data;
             const poly = api.data.polyline;
             if (status) {
-                setLine(polyline.decode(poly).map(([lat, lng], i) => ({ latitude: lat * 0.1, longitude: lng * 0.1 })));
+                setLine(polyline.decode(poly).map(([lat, lng]: any, i: number) => ({ latitude: lat * 0.1, longitude: lng * 0.1 })));
                 setList([...pickList]);
                 if (pickList.length > 0) {
                     mapRef.current?.animateToRegion({
@@ -81,6 +83,7 @@ const DriverMap = ({ idx }: Props) => {
             const poly = api.data.polyline;
             console.log(api.data);
             if (status) {
+                // @ts-ignore
                 setLine(polyline.decode(poly).map(([lat, lng], i) => ({ latitude: lat * 0.1, longitude: lng * 0.1 })));
                 setList([...data]);
                 if (data.length > 0) {
@@ -107,7 +110,7 @@ const DriverMap = ({ idx }: Props) => {
         <>
             <Box flex={1} my={2}>
                 <Box h={'100%'}>
-                    {list.length > 0 && (
+                    {loading && list.length > 0 && (
                         <MapView
                             ref={mapRef}
                             style={{ flex: 1 }}
@@ -141,17 +144,20 @@ const DriverMap = ({ idx }: Props) => {
                             />
                             {list.map((v, i) => (
                                 <Marker
-                                    coordinate={{
-                                        latitude: v.lat,
-                                        longitude: v.lot,
-                                    }}
+                                    coordinate={
+                                        {
+                                            latitude: v.lat,
+                                            longitude: v.lot,
+                                        } as any
+                                    }
                                     title={`${v.address}`}
-                                    description=""
+                                    description={`${v.routeOrder}`}
+                                    style={{ width: 30, height: 30 }}
                                     image={pin}
                                 />
                             ))}
 
-                            <Polyline coordinates={line} strokeColor={'#1C6EBA'} strokeWidth={2} />
+                            <Polyline coordinates={line} strokeColor={'#1C6EBA'} strokeWidth={4} />
                         </MapView>
                     )}
                 </Box>

@@ -180,6 +180,7 @@ const DepotDetail = () => {
                             Customer
                         </Text>
                         <Text fontSize={'22px'} fontFamily={'Arch'} color={'black.100'}>
+                            {/*@ts-ignore*/}
                             {`${customer?.userName ?? ''}`}
                         </Text>
                     </Box>

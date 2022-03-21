@@ -15,8 +15,8 @@ const unCheckIcon = require('../../../assets/icons/unChecked.png');
 
 const InfoModal = ({ open, setOpen }: Props) => {
     const user = useSelector((state: RootState) => state.auth.user);
-
     const navigation = useNavigation();
+    const check = user?.userType === 1 ? user?.profileCheck === 1 : user?.businessCheck === 1;
     return (
         <Modal isOpen={open} onClose={() => setOpen(false)}>
             <Modal.Content maxWidth="400px">
@@ -34,7 +34,7 @@ const InfoModal = ({ open, setOpen }: Props) => {
                                     w={'20px'}
                                     h={'20px'}
                                     resizeMode={'contain'}
-                                    source={user?.profileCheck ? checkIcon : unCheckIcon}
+                                    source={check ? checkIcon : unCheckIcon}
                                     alt={'houseimage'}
                                 />
                                 <Text textAlign={'center'} fontFamily={'Arch'} fontWeight={700} fontSize={'16px'}>
@@ -59,7 +59,7 @@ const InfoModal = ({ open, setOpen }: Props) => {
                                     w={'20px'}
                                     h={'20px'}
                                     resizeMode={'contain'}
-                                    source={user?.addressCheck ? checkIcon : unCheckIcon}
+                                    source={user?.addressCheck === 1 ? checkIcon : unCheckIcon}
                                     alt={'houseimage'}
                                 />
                                 <Text textAlign={'center'} fontFamily={'Arch'} fontWeight={700} fontSize={'16px'}>

@@ -71,7 +71,7 @@ const DepotList = () => {
                                 ? list.map((v, i) => (
                                       <TouchableOpacity
                                           key={`didfj123g+${i}`}
-                                          onPress={() => navigation.navigate('DetailScreen', { idx: v.idx })}
+                                          onPress={() => navigation.navigate('DetailScreen' as never, { idx: v.idx } as never)}
                                       >
                                           <HStack
                                               borderBottomWidth={0.5}
@@ -99,7 +99,9 @@ const DepotList = () => {
                                                   </Text>
                                               </Box>
                                               <Box alignItems={'center'} w={'25%'}>
-                                                  <TouchableOpacity onPress={() => navigation.navigate('DepotDetail', { code: v.code })}>
+                                                  <TouchableOpacity
+                                                      onPress={() => navigation.navigate('DepotDetail' as never, { code: v.code } as never)}
+                                                  >
                                                       <Image source={RightArrow} alt={'RightArrow'} />
                                                   </TouchableOpacity>
                                               </Box>

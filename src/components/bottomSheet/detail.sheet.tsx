@@ -104,7 +104,6 @@ const DetailSheet = ({ open, onHandler, navigation }: Props) => {
                                         <Input
                                             value={values.comment}
                                             onBlur={handleBlur('comment')}
-                                            touched={touched.comment}
                                             onChangeText={handleChange('comment')}
                                             placeholder="comment"
                                         />

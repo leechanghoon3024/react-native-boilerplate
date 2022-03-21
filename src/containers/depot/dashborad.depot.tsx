@@ -35,7 +35,7 @@ const DashboardDepot = () => {
             <VStack>
                 <Box flexWrap={'wrap'} flexDirection={'row'} p={2}>
                     <Pressable
-                        onPress={() => navigation.navigate('QrScanScreen')}
+                        onPress={() => navigation.navigate('QrScanScreen' as any)}
                         _pressed={{ opacity: 0.5 }}
                         m={2}
                         borderRadius={18}
@@ -54,7 +54,7 @@ const DashboardDepot = () => {
                     </Pressable>
 
                     <Pressable
-                        onPress={() => navigation.navigate('ScanFind')}
+                        onPress={() => navigation.navigate('ScanFind' as never)}
                         _pressed={{ opacity: 0.5 }}
                         m={2}
                         borderRadius={18}
@@ -72,7 +72,7 @@ const DashboardDepot = () => {
                         </Text>
                     </Pressable>
                     <Pressable
-                        onPress={() => navigation.navigate('DepotList')}
+                        onPress={() => navigation.navigate('DepotList' as any)}
                         _pressed={{ opacity: 0.5 }}
                         m={2}
                         borderRadius={18}
@@ -90,7 +90,7 @@ const DashboardDepot = () => {
                         </Text>
                     </Pressable>
                     <Pressable
-                        onPress={() => navigation.navigate('Setting')}
+                        onPress={() => navigation.navigate('Setting' as any)}
                         _pressed={{ opacity: 0.5 }}
                         m={2}
                         borderRadius={18}

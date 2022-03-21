@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { Box, Button, Text } from 'native-base';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import AutoHeightImage from 'react-native-auto-height-image';
 
 interface Props {
-    marker: { lat: number; lot: number }[];
+    marker: { lat: any; lot: any }[];
 }
 
+const pin = require('../../assets/icons/address-pin.png');
 const GoogleMarker = ({ marker }: Props) => {
     const mapRef = useRef<MapView>(null);
     console.log(marker);
@@ -28,7 +30,7 @@ const GoogleMarker = ({ marker }: Props) => {
     if (marker.length > 0) {
         return (
             <>
-                <Box flex={1} my={2}>
+                <Box flex={1}>
                     <Box h={'100%'}>
                         <MapView
                             ref={mapRef}
@@ -71,7 +73,9 @@ const GoogleMarker = ({ marker }: Props) => {
                             // }}
                         >
                             {marker.map(({ lat, lot }) => (
-                                <Marker coordinate={{ latitude: lat, longitude: lot }} title="Here" description="" />
+                                <Marker coordinate={{ latitude: lat, longitude: lot }}>
+                                    <AutoHeightImage source={pin} width={40} />
+                                </Marker>
                             ))}
                         </MapView>
                     </Box>

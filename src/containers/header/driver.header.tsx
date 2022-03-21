@@ -14,7 +14,6 @@ interface Props {
     optional?: string;
 }
 
-const MainLogo = require('../../assets/icons/mainLogo.png');
 const DriverHeader = ({ navigation, optional }: Props) => {
     const user = useSelector((state: RootState) => state.auth.user);
     return (

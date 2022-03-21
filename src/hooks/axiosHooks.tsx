@@ -5,12 +5,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Box, Text, useToast } from 'native-base';
 import { useDispatch } from 'react-redux';
 import { logoutAction } from '../store/authReducer';
-import { loadingAction } from '../store/commonReducer';
+import { loadingAction, loadingEndAction } from '../store/commonReducer';
 // http://192.168.0.11:1818
 // 'https://recan-api.mirable.cc'
-export const baseUrl = 'https://recan-api.mirable.cc';
+const env = process.env.NODE_ENV === 'development' ? 'http://192.168.0.11:1818' : 'https://recan-api.mirable.cc';
+const urlArray = ['http://192.168.0.11:1818', 'https://recan-api.mirable.cc'];
+export const baseUrl = urlArray[1];
+
+const tempShop = ['https://recan-dev.mirable.cc/authLogin?token=', 'http://192.168.219.101:3003/authLogin?token='];
+export const shopUrl = tempShop[0];
 const useAxiosServices = () => {
     const toast = useToast();
+
     const dispatch = useDispatch();
     const axiosApiRefreshToken = axios.create({
         baseURL: baseUrl,
@@ -65,7 +71,7 @@ const useAxiosServices = () => {
 
     axiosServicesConfig.interceptors.response.use(
         async (response) => {
-            dispatch(loadingAction());
+            dispatch(loadingEndAction());
             const originalRequest = response.config;
             if (originalRequest.url === '/users/login') {
                 const { accessToken, refreshToken } = response.data?.data;
@@ -78,7 +84,7 @@ const useAxiosServices = () => {
         },
 
         async (error: AxiosError) => {
-            dispatch(loadingAction());
+            dispatch(loadingEndAction());
             const originalRequest = error.config;
             const refreshToken = await AsyncStorage.getItem('refreshToken');
             if (error.response?.status === 401 && originalRequest.url === '/users/refresh') {

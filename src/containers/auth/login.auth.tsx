@@ -44,9 +44,6 @@ const LoginAuth = () => {
                             error={errors.email}
                             touched={touched.email}
                             onChangeText={handleChange('email')}
-                            InputRightElement={
-                                <IconButton _pressed={{ bg: 'transfer', opacity: 0.5 }} icon={<PasswordViewIcon color={'#ACACAC'} />} />
-                            }
                             placeholder="Email"
                         />
                         <CustomInput
@@ -54,9 +51,6 @@ const LoginAuth = () => {
                             error={errors.password}
                             touched={touched.password}
                             onChangeText={handleChange('password')}
-                            InputRightElement={
-                                <IconButton _pressed={{ bg: 'transfer', opacity: 0.5 }} icon={<PasswordViewIcon color={'#ACACAC'} />} />
-                            }
                             placeholder="Password"
                         />
                         <Box alignItems={'flex-end'}>

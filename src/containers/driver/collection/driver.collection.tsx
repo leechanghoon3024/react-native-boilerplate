@@ -34,6 +34,8 @@ import { addressListType, userTypes } from '../../../@types/userTypes';
 import AddressSheet from '../../../components/bottomSheet/address.sheet';
 import { addressChange } from '../../../store/authReducer';
 import { DriverParamList, UserParamList } from '../../../@types/navigationTypes';
+import BackIcon from '../../../assets/icons/back.icon';
+import CloseIcon from '../../../assets/icons/close.icon';
 const LibImage = require('../../../assets/icons/photo.png');
 const CameraImage = require('../../../assets/icons/camera.png');
 
@@ -61,7 +63,7 @@ const DriverCollection = () => {
     const { axiosService } = useAxiosServices();
     const [status, setStatus] = useState<number>(0);
     const [profile, setProfile] = useState<userTypes | null>(null);
-    const [address, setAddress] = useState<addressListType>({ address: '', idx: 0, lat: 0, lot: 0, main: 0 });
+    const [address, setAddress] = useState<addressListType>({ address: '', idx: 0, lat: 0, lot: 0, main: 0, moreText: '' });
     const [step, setStep] = useState<number>(5);
     const [bagData, setBagData] = useState<bagType[]>([{ type: 0, value: 0 }]);
     const [needBag, setNeedBag] = useState<bagType[]>([{ type: 0, value: 0 }]);
@@ -117,7 +119,6 @@ const DriverCollection = () => {
             await ImagePicker.openPicker({
                 width: 600,
                 height: 600,
-                cropping: true,
             }).then((image) => {
                 setPhoto(image);
                 console.log(image);
@@ -235,7 +236,7 @@ const DriverCollection = () => {
         }
     };
 
-    const dotMove = (v) => {
+    const dotMove = (v: any) => {
         if (step > v) {
             setStep(v);
         }
@@ -397,7 +398,7 @@ const DriverCollection = () => {
                 });
                 navigation.reset({
                     index: 0,
-                    routes: [{ name: 'Main' }],
+                    routes: [{ name: 'Main' } as any],
                 });
             }
         } catch (e) {
@@ -425,7 +426,7 @@ const DriverCollection = () => {
                     <Box>
                         <HStack alignItems={'center'} justifyContent={'space-between'}>
                             <TouchableOpacity onPress={() => navigation.goBack()}>
-                                <Image source={LeftArrow} alt={'leftArrow'} />
+                                <BackIcon />
                             </TouchableOpacity>
                             <Box flexDirection={'row'} alignItems={'center'}>
                                 {!pick && (
@@ -437,7 +438,7 @@ const DriverCollection = () => {
                                 )}
 
                                 <TouchableOpacity onPress={() => navigation.goBack()}>
-                                    <Image source={Close} alt={'Close'} />
+                                    <CloseIcon />
                                 </TouchableOpacity>
                             </Box>
                         </HStack>
@@ -458,11 +459,14 @@ const DriverCollection = () => {
                     {!pick && (
                         <TouchableOpacity
                             onPress={() =>
-                                navigation.navigate('Qrcode', { customer: profile.userName, idx: idx, address: address.address })
+                                navigation.navigate(
+                                    'Qrcode' as never,
+                                    { customer: profile?.userName, idx: idx, address: address.address } as never
+                                )
                             }
                         >
                             <Box borderRadius={100} bg={'blue.200'} p={4}>
-                                <Image source={qrIcon} alt={'qrIcon'} />
+                                <Image w={'35px'} h={'35px'} resizeMode={'contain'} source={qrIcon} alt={'qrIcon'} />
                             </Box>
                         </TouchableOpacity>
                     )}
@@ -572,7 +576,7 @@ const DriverCollection = () => {
                                                 borderColor={'black.100'}
                                                 borderWidth={'1'}
                                             >
-                                                <RNImage source={CameraImage} alt={'LibImage'} />
+                                                <RNImage source={CameraImage} />
                                             </Button>
                                             <Button
                                                 onPress={() => photoHandler('pick')}
@@ -650,7 +654,7 @@ const DriverCollection = () => {
                                 <Box flex={1} maxH={'300px'} h={'250px'}>
                                     <GoogleMarker marker={[{ lat: address.lat, lot: address.lot }]} />
                                 </Box>
-                                <VStack w={'100%'} justifyContent={'center'} alignItems={'center'} space={4} p={2}>
+                                <VStack w={'100%'} justifyContent={'center'} alignItems={'center'} p={2}>
                                     <EditCard
                                         disabled={true}
                                         source={addressPin}
@@ -760,6 +764,7 @@ const DriverCollection = () => {
                                         </Box>
                                     )}
                                 </VStack>
+                                <Box mb={30} />
                             </ScrollView>
                         </Box>
                     )}
@@ -788,7 +793,7 @@ const DriverCollection = () => {
                 <Button
                     w={pick ? '100%' : '50%'}
                     borderRadius={0}
-                    onPress={() => navigation.navigate('DriverView', { idx })}
+                    onPress={() => navigation.navigate('DriverView' as never, { idx } as never)}
                     _disabled={{ bg: 'gray.100' }}
                     variant={'basicButton'}
                     bg={'blue.200'}
@@ -830,7 +835,7 @@ const DriverCollection = () => {
                             </VStack>
                         </Center>
                     </Modal.Body>
-                    <Modal.Footer p={0}>
+                    <Modal.Footer p={0} pb={-10}>
                         <Button.Group space={0}>
                             <Button
                                 bg={'blue.200'}
@@ -881,7 +886,7 @@ const DriverCollection = () => {
                             </VStack>
                         </Center>
                     </Modal.Body>
-                    <Modal.Footer p={0}>
+                    <Modal.Footer p={0} pb={-10}>
                         <Button.Group space={0}>
                             <Button
                                 borderRadius={0}
@@ -918,7 +923,7 @@ const DriverCollection = () => {
                             </VStack>
                         </Center>
                     </Modal.Body>
-                    <Modal.Footer p={0}>
+                    <Modal.Footer p={0} pb={-10}>
                         <Button.Group space={0}>
                             <Button
                                 borderRadius={0}

@@ -39,12 +39,10 @@ const DashBoardDriver = () => {
             }
         } catch (e) {}
     };
-    console.log(readyList.length, 're');
-    console.log(comList.length, 'co');
-    console.log('1', Number((comList.length / (comList.length + readyList.length)) * 100));
     return (
-        <ImageBackground source={BackGroundImage} style={{ flex: 1 }}>
-            <Box safeArea flex={1} m={3} px={2}>
+        <>
+            <Image w={width} h={height / 1.5} source={BackGroundImage} position={'absolute'} zIndex={1} />
+            <Box safeArea flex={1} m={3} px={2} zIndex={2} bg={'rgba(255,255,255,0)'}>
                 <DriverHeader navigation={navigation} />
                 <Box
                     justifyContent={'space-between'}
@@ -110,7 +108,7 @@ const DashBoardDriver = () => {
                 {/*    />*/}
                 {/*</Center>*/}
             </Box>
-        </ImageBackground>
+        </>
     );
 };
 

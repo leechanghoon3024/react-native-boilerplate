@@ -1,22 +1,24 @@
 import React from 'react';
-import { Box, Center, Image, Text, VStack } from 'native-base';
+import { Box, Center, Image, Text, VStack, WarningIcon } from 'native-base';
 import { Dimensions } from 'react-native';
+import { La15N, La15Sb, La28B } from '../../themes/font.style';
+import WasteIcon from '../../assets/icons/waste.icon';
 
 interface Props {
-    image: any;
+    Icon: any;
     value: string;
     subTitle: string;
 }
 const { width, height } = Dimensions.get('window');
-const DashboardCard = ({ image, value, subTitle }: Props) => {
+const DashboardCard = ({ Icon, value, subTitle }: Props) => {
     return (
-        <VStack w={'50%'} height={120} space={2} justifyContent={'flex-end'} alignItems={'center'}>
-            <Image source={image} alt={'value'} />
+        <VStack w={'50%'} justifyContent={'flex-end'} alignItems={'center'}>
+            <Icon />
             <Box justifyContent={'center'} alignItems={'center'}>
-                <Text fontSize={'24px'} fontWeight={'700'} fontFamily={'Lato'} color={'black.100'}>
+                <Text {...La28B} color={'gray.300'}>
                     {value}
                 </Text>
-                <Text textAlign={'center'} fontSize={'12px'} fontWeight={'500'} fontFamily={'Lato'} color={'gray.300'}>
+                <Text {...La15Sb} numberOfLines={2} textAlign={'center'} color={'black.100'}>
                     {subTitle}
                 </Text>
             </Box>

@@ -40,6 +40,7 @@ const ScanFind = () => {
                 <Box safeArea p={2}>
                     <Box mt={2} px={6} pl={3} w={'100%'}>
                         <Box flexDirection={'row'} justifyContent={'space-between'}>
+                            {/*@ts-ignore*/}
                             <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
                                 <Image source={whiteArrow} alt={'whiteArrow'} />
                             </TouchableOpacity>
@@ -89,7 +90,7 @@ const ScanFind = () => {
                                     </Text>
                                 </Box>
                                 <Box>
-                                    <TouchableOpacity onPress={() => navigation.navigate('ScanDetail', { code: v.code })}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('ScanDetail' as never, { code: v.code } as never)}>
                                         <Image source={arrow} alt={'arrow'} />
                                     </TouchableOpacity>
                                 </Box>

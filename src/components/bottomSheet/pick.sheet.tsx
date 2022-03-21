@@ -19,7 +19,6 @@ const PickSheet = ({ open, onHandler, navigation }: Props) => {
                     <Heading fontFamily={'Arch'} fontWeight={500} fontSize={24} mb={3}>
                         List
                     </Heading>
-                    <InMapList navigation={navigation} />
                 </Box>
             </Actionsheet.Content>
         </Actionsheet>

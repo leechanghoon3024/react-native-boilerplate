@@ -17,22 +17,15 @@ import {
     Modal,
     VStack,
 } from 'native-base';
-import PasswordViewIcon from '../../assets/icons/passwordView.icon';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import GoogleIcon from '../../assets/icons/google.icon';
-import FaceBookIcon from '../../assets/icons/facebook.icon';
-import AppleIcon from '../../assets/icons/apple.icon';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import ErrorHelp from '../../components/customInput/error.help';
 import CustomInput from '../../components/customInput/defaultInput';
 import { useNavigation } from '@react-navigation/native';
 import DefaultHeader from '../header/header.default';
-import SelectAccountSheet from '../../components/bottomSheet/selectAccount.sheet';
 import useAxiosServices from '../../hooks/axiosHooks';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
-import { loginAction, profileSetting } from '../../store/authReducer';
+import { Ar17R, Ar25SbBlack, Ar28BoldBlack } from '../../themes/font.style';
 
 const SingInSchema = Yup.object().shape({
     email: Yup.string().email('Please enter a valid email').min(4, `email Too short`).required(`Please enter your email`),
@@ -101,78 +94,65 @@ const PasswordFind = () => {
             });
         }
     };
-
-    const mailHandler = (code, email) => {
+    const [code, setCode] = useState('');
+    const [email, setEmail] = useState('');
+    const mailHandler = (code: any, email: any) => {
         setShowModal(true);
-        navigation.navigate('PasswordValidate', { code: String(code), email });
+        setCode(code);
+        setEmail(email);
     };
 
     return (
         <>
-            <Box alignItems={'center'}>
-                <Box px={5} maxW={'400px'} safeArea flexGrow={1} justifyContent={'space-between'}>
-                    <DefaultHeader navigation={navigation} />
-                    <ScrollView>
-                        <Box pb="10" alignItems={'center'} mt={20}>
-                            <Heading mb={2} fontFamily={'Arch'} fontWeight={700} fontSize={'28px'}>
-                                Forgot your password?
-                            </Heading>
-                            <Heading fontFamily={'Arch'} fontWeight={500} fontSize={'16px'}>
-                                Enter your email to receive a verified Code
-                            </Heading>
-                        </Box>
-                        <Center>
-                            <Stack space={4} width={'100%'}>
-                                <ErrorHelp errors={errors} />
-                                <CustomInput
-                                    value={values.email}
-                                    error={errors.email}
-                                    touched={touched.email}
-                                    onChangeText={handleChange('email')}
-                                    placeholder="Email address"
-                                />
-                            </Stack>
-                        </Center>
-                        <Center mt={'100px'}>
-                            <Stack space={4} width={'100%'}>
-                                <Button my={2} colorScheme={'blue.200'} onPress={() => handleSubmit()} variant={'basicButton'}>
-                                    <HStack alignItems={'center'}>
-                                        <Box alignItems={'center'} width={'100%'}>
-                                            <Text color={'white.100'} fontFamily={'Arch'} fontWeight={'700'} fontSize={21}>
-                                                Continue
-                                            </Text>
-                                        </Box>
-                                    </HStack>
-                                </Button>
-                            </Stack>
-                        </Center>
-                    </ScrollView>
-                    <Flex>
-                        <Box justifyContent={'flex-end'}>
-                            <Box justifyContent={'center'} alignContent={'center'} flexDirection={'row'}>
-                                <Text fontFamily={'Arch'} fontWeight={'100'} fontSize={'17'}>
-                                    Don't have an account?
-                                </Text>
-                                <TouchableOpacity onPress={() => navigation.navigate('SingUpScreen')}>
-                                    <Text fontFamily={'Arch'} fontWeight={'700'} fontSize={'17'} ml={1}>
-                                        Sign up
-                                    </Text>
-                                </TouchableOpacity>
-                            </Box>
-                        </Box>
-                    </Flex>
-                </Box>
+            <DefaultHeader navigation={navigation} bg={'white.100'} />
+            <Box bg={'white.100'} px={5} maxW={'400px'} safeAreaBottom flexGrow={1} justifyContent={'space-between'}>
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    <Box px={3} pt={'50px'} pb="10" alignItems={'flex-start'} mt={10}>
+                        <Heading {...Ar28BoldBlack} mb={2}>
+                            Forgot your password?
+                        </Heading>
+                        <Heading {...Ar17R} color={'black.100'}>
+                            Enter your email to receive a verified Code
+                        </Heading>
+                    </Box>
+                    <Box px={3}>
+                        <Stack width={'100%'}>
+                            <ErrorHelp errors={errors} />
+                            <CustomInput
+                                value={values.email}
+                                error={errors.email}
+                                touched={touched.email}
+                                onChangeText={handleChange('email')}
+                                placeholder="Email address"
+                            />
+                        </Stack>
+                    </Box>
+                    <Center mt={'100px'} px={3}>
+                        <Stack width={'100%'}>
+                            <Button h={'56px'} my={2} colorScheme={'blue.200'} onPress={() => handleSubmit()} variant={'basicButton'}>
+                                <HStack alignItems={'center'}>
+                                    <Box alignItems={'center'} width={'100%'}>
+                                        <Text color={'white.100'} fontFamily={'Arch'} fontWeight={'700'} fontSize={21}>
+                                            Continue
+                                        </Text>
+                                    </Box>
+                                </HStack>
+                            </Button>
+                        </Stack>
+                    </Center>
+                </ScrollView>
             </Box>
+
             <Modal p={0} isOpen={showModal} onClose={() => setShowModal(false)}>
-                <Modal.Content maxWidth="400px">
+                <Modal.Content maxWidth="400px" borderRadius={10}>
                     <Modal.Body>
-                        <Center>
+                        <Center mt={10}>
                             <Image w={'100px'} h={'100px'} resizeMode={'contain'} source={mailIcon} alt={'houseimage'} />
                             <VStack space={2} mt={4} alignItems={'center'}>
-                                <Text fontFamily={'Arch'} fontWeight={700} fontSize={'16px'}>
+                                <Text fontFamily={'Arch'} fontWeight={700} fontSize={'21px'} color={'black.100'}>
                                     Check your email
                                 </Text>
-                                <Text textAlign={'center'} fontFamily={'Arch'} fontWeight={700} fontSize={'12px'}>
+                                <Text textAlign={'center'} fontFamily={'Arch'} fontWeight={700} fontSize={'14px'} color={'black.100'}>
                                     {'To reset your password, please\n' +
                                         'check your email and follow the\n' +
                                         'instruction to reset your password.\n'}
@@ -180,8 +160,8 @@ const PasswordFind = () => {
                             </VStack>
                         </Center>
                     </Modal.Body>
-                    <Modal.Footer>
-                        <Button.Group space={2}>
+                    <Modal.Footer p={0} bg={'blue.200'}>
+                        <Button.Group>
                             <Button
                                 borderRadius={0}
                                 bg={'blue.200'}
@@ -189,9 +169,10 @@ const PasswordFind = () => {
                                 variant="basicButton"
                                 onPress={() => {
                                     setShowModal(false);
+                                    navigation.navigate('PasswordValidate', { code: String(code), email });
                                 }}
                             >
-                                <Text textAlign={'center'} fontFamily={'Arch'} fontWeight={700} fontSize={'16px'} color={'white.100'}>
+                                <Text textAlign={'center'} {...Ar25SbBlack} color={'white.100'}>
                                     Got it!
                                 </Text>
                             </Button>

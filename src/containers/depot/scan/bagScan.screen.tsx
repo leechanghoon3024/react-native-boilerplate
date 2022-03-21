@@ -21,7 +21,7 @@ const BagScanScreen = () => {
                 <Box safeArea p={2}>
                     <Box mt={2} px={6} pl={3} w={'100%'}>
                         <Box flexDirection={'row'} justifyContent={'space-between'}>
-                            <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('HomeScreen' as any)}>
                                 <Image source={whiteArrow} alt={'whiteArrow'} />
                             </TouchableOpacity>
                             <Text fontWeight={700} fontSize={'22px'} fontFamily={'Arch'} color={'white.100'}>
@@ -51,7 +51,7 @@ const BagScanScreen = () => {
                             </Text>
                         </Box>
                         <Box>
-                            <TouchableOpacity onPress={() => navigation.navigate('ScanDetail', { code: v.code })}>
+                            <TouchableOpacity onPress={() => navigation.navigate('ScanDetail' as never, { code: v.code } as never)}>
                                 <Image source={arrow} alt={'arrow'} />
                             </TouchableOpacity>
                         </Box>

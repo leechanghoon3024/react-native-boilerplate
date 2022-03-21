@@ -1,4 +1,4 @@
-export const BookStatusCase = (status: number) => {
+export const BookStatusCase = (status: number | undefined) => {
     switch (status) {
         case 1:
             return 'Booked';
@@ -55,5 +55,97 @@ export const TransactionTypeCase = (status: number) => {
             return 'Bank';
         default:
             return '';
+    }
+};
+
+export const TransactionBagCase = (status: number) => {
+    switch (status) {
+        case 1:
+            return 'Recan bags';
+        case 2:
+            return 'Non Recan bags';
+        case 3:
+            return 'Wheelie Bin';
+        case 4:
+            return 'Bulk Bag';
+        default:
+            return 'Type of bags';
+    }
+};
+
+export const TransactionPickupCase = (status: number) => {
+    console.log('TTTTTT, ', status);
+    switch (status) {
+        case 1:
+            return 'Every week';
+        case 2:
+            return 'Every fortnight';
+        case 3:
+            return 'Every monthly';
+        default:
+            return '';
+    }
+};
+
+export const TransactionBusinessCase = (status: any) => {
+    switch (status) {
+        case '1':
+            return 'Commercial';
+        case '2':
+            return 'School';
+        case '3':
+            return 'Charity';
+        default:
+            return 'Business type';
+    }
+};
+
+export const TransactionBusinessCase2 = (status: any) => {
+    switch (status) {
+        case '1':
+            return 'Commercial';
+        case '2':
+            return 'School';
+        case '3':
+            return 'Charity';
+        default:
+            return ' ';
+    }
+};
+
+export const TransactionAddress = (status: number) => {
+    switch (status) {
+        case 1:
+            return 'House';
+        case 2:
+            return 'Townhouse';
+        case 3:
+            return 'Apartment';
+        default:
+            return '';
+    }
+};
+
+export const TransactionBAddress = (status: number) => {
+    switch (status) {
+        case 1:
+            return 'Private Business';
+        case 2:
+            return 'Warehouse';
+        case 3:
+            return 'Service office';
+        default:
+            return '';
+    }
+};
+
+export const TransactionSortCase = (status: string) => {
+    switch (status) {
+        case '1':
+            return 'Oldest to newest';
+        case '2':
+            return 'Newest to oldest';
+        default:
+            return 'Oldest to newest';
     }
 };

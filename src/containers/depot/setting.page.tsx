@@ -24,7 +24,7 @@ const SettingPage = () => {
                 <Box safeArea p={2}>
                     <Box mt={2} px={6} pl={3} w={'100%'}>
                         <Box flexDirection={'row'} justifyContent={'space-between'}>
-                            <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('HomeScreen' as never)}>
                                 <Image source={whiteArrow} alt={'whiteArrow'} />
                             </TouchableOpacity>
                             <Text fontWeight={700} fontSize={'22px'} fontFamily={'Arch'} color={'white.100'}>

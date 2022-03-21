@@ -3,6 +3,7 @@ import { Box, Image, Text } from 'native-base';
 import { TouchableOpacity } from 'react-native';
 import { collectionTypes } from '../../../@types/collection.types';
 import { timeFind } from '../../../utils/times';
+import BackGray from '../../../assets/icons/back.gray';
 
 const marker = require('../../../assets/icons/address-pin.png');
 const calnder = require('../../../assets/icons/datepicker.png');
@@ -32,7 +33,7 @@ const DriverCard = ({ navigation, value }: Props) => {
             </Box>
             <Box>
                 <TouchableOpacity onPress={() => navigation.navigate('DriverCollection', { idx: value.idx })}>
-                    <Image source={arrow} width={'30px'} height={'30px'} alt={'markder'} />
+                    <BackGray />
                 </TouchableOpacity>
             </Box>
         </Box>

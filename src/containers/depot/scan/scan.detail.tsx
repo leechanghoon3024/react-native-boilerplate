@@ -50,7 +50,7 @@ const ScanDetail = () => {
         <Box safeArea flex={1}>
             <Box mt={2} px={6} pl={3} w={'100%'}>
                 <Box flexDirection={'row'} justifyContent={'space-between'}>
-                    <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('HomeScreen' as any)}>
                         <Image source={arrow} alt={'whiteArrow'} />
                     </TouchableOpacity>
                 </Box>
@@ -133,6 +133,7 @@ const ScanDetail = () => {
                                         {`Customer`}
                                     </Text>
                                     <Text fontWeight={700} fontSize={'18px'} fontFamily={'Arch'} color={'black.100'}>
+                                        {/*@ts-ignore*/}
                                         {`${customer?.userName ?? ''}`}
                                     </Text>
                                 </Box>
@@ -151,6 +152,7 @@ const ScanDetail = () => {
                                         {`Customer ID`}
                                     </Text>
                                     <Text fontWeight={700} fontSize={'18px'} fontFamily={'Arch'} color={'black.100'}>
+                                        {/*@ts-ignore*/}
                                         {`${customer?.userEmail ?? ''}`}
                                     </Text>
                                 </Box>
@@ -159,6 +161,7 @@ const ScanDetail = () => {
                     ))}
                 </VStack>
             </>
+            {/*@ts-ignore*/}
             <Button m={2} h={'80px'} bg={'blue.100'} onPress={() => navigation.navigate('CalculateScreen', { code })}>
                 <Text fontWeight={400} fontSize={'30px'} fontFamily={'Arch'} color={'white.100'}>
                     SELECT

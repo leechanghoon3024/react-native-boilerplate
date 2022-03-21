@@ -14,9 +14,12 @@ export const commonSlice = createSlice({
         loadingAction: (state) => {
             state.isLoading = !state.isLoading;
         },
+        loadingEndAction: (state) => {
+            state.isLoading = false;
+        },
     },
 });
 
-export const { loadingAction } = commonSlice.actions;
+export const { loadingAction, loadingEndAction } = commonSlice.actions;
 
 export default commonSlice.reducer;

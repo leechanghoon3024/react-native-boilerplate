@@ -15,9 +15,11 @@ const CustomInput = forwardRef<typeof Input, Props>(({ value, touched, error, ..
             alignItems={'center'}
             width={'100%'}
             borderWidth={1}
+            maxH={'54px'}
             borderRadius={100}
             borderColor={error && !touched ? 'red.100' : 'black.100'}
             px={2}
+            pl={4}
         >
             <Input
                 backgroundColor={'#00ff0000'}
@@ -25,7 +27,7 @@ const CustomInput = forwardRef<typeof Input, Props>(({ value, touched, error, ..
                 borderWidth={0}
                 isFullWidth
                 width={'100%'}
-                height={'50px'}
+                height={'54px'}
                 size="lg"
                 {...{ ref }}
                 {...props}

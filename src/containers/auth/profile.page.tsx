@@ -6,9 +6,9 @@ import { AuthParamList } from '../../@types/navigationTypes';
 import LabelInput from '../../components/customInput/Label.input';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { Platform, TouchableOpacity } from 'react-native';
+import { Appearance, Platform, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-import { dateFormat } from '../../utils/times';
+import { dateFormat, dateFormatNotTime } from '../../utils/times';
 import MaskInput from '../../components/customInput/maskInput';
 import SelectInput from '../../components/customInput/select.input';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -47,7 +47,7 @@ const ProfilePage = () => {
             firstName: user?.userFirstName ?? '',
             LastName: user?.userName ?? '',
             email: user?.userEmail ?? user?.userId,
-            birthDate: dateFormat(user?.userBirth ? new Date(user?.userBirth) : new Date('1993-06-29')),
+            birthDate: user?.userBirth,
             // birthDate: new Date('1993-06-29'),
 
             mobile: user?.userPhone ?? '',
@@ -64,7 +64,7 @@ const ProfilePage = () => {
     const toast = useToast();
     const navigation = useNavigation<NavigationProp<AuthParamList>>();
     const dispatch = useDispatch();
-    const profileUpdate = async (value) => {
+    const profileUpdate = async (value: any) => {
         try {
             const api = await axiosService.post('/users/app/profile/update', value);
             const { status } = api.data;
@@ -163,10 +163,10 @@ const ProfilePage = () => {
     };
     return (
         <>
-            <Box px={5} flexGrow={1} safeArea justifyContent={'space-between'}>
-                <DefaultHeader navigation={navigation} />
-                <KeyboardAwareScrollView behavior={'position'} showsVerticalScrollIndicator={false}>
-                    <Box mt={5} alignItems={'flex-start'}>
+            <DefaultHeader navigation={navigation} />
+            <Box pt={'10px'} px={5} flexGrow={1} safeAreaBottom justifyContent={'space-between'}>
+                <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+                    <Box alignItems={'flex-start'}>
                         <Heading fontFamily={'Arch'} fontWeight={'700'} fontSize={36}>
                             Profile
                         </Heading>
@@ -199,11 +199,13 @@ const ProfilePage = () => {
                                 placeholder="email"
                             />
                             <TouchableOpacity
+                                style={{ width: '100%' }}
                                 onPress={() => {
                                     setOpenBirth(true);
                                 }}
                             >
                                 <LabelInput
+                                    inter={() => setOpenBirth(true)}
                                     isDisabled={true}
                                     label={'BirthDate'}
                                     value={values.birthDate}
@@ -222,6 +224,7 @@ const ProfilePage = () => {
                                 setFieldValue={setFieldValue}
                                 placeholder="gender"
                             />
+                            {/*@ts-ignore*/}
                             <MaskInput
                                 onBlur={handleBlur('mobile')}
                                 label={'Mobile'}
@@ -234,7 +237,7 @@ const ProfilePage = () => {
                             />
                         </VStack>
                     </Box>
-                    <Flex mb={10}>
+                    <Flex>
                         <Box justifyContent={'center'} alignItems={'center'}>
                             <Button onPress={() => handleSubmit()} variant={'shadowBasic'} bg={'blue.200'}>
                                 <Text fontFamily={'Arch'} fontWeight={100} fontSize={22} color={'white.100'}>
@@ -243,6 +246,7 @@ const ProfilePage = () => {
                             </Button>
                         </Box>
                     </Flex>
+                    <Box mb={'40px'} />
                 </KeyboardAwareScrollView>
             </Box>
 
@@ -250,10 +254,11 @@ const ProfilePage = () => {
                 modal
                 mode={'date'}
                 open={openBirth}
-                date={new Date(values.birthDate)}
+                textColor={Appearance.getColorScheme() === 'dark' ? 'white' : 'black'}
+                date={new Date(values.birthDate as any)}
                 onConfirm={(date) => {
                     setOpenBirth(false);
-                    setFieldValue('birthDate', dateFormat(date));
+                    setFieldValue('birthDate', dateFormatNotTime(date));
                 }}
                 onCancel={() => {
                     setOpenBirth(false);

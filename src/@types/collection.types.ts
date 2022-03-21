@@ -1,7 +1,7 @@
 import { userTypes } from './userTypes';
 
 export interface bagType {
-    type: 1 | 2 | 3 | 4 | 0;
+    type: number;
     value: number;
 }
 
@@ -78,9 +78,17 @@ export interface collectionTypes {
 
     dogCheck: number | null;
 
+    credit: number;
+
+    depotReport: string[];
+
+    depotText: string;
+
     user?: userTypes;
 }
-
+export interface reportTypes extends collectionTypes {
+    total: number;
+}
 export interface codeListTypes {
     idx: number;
 

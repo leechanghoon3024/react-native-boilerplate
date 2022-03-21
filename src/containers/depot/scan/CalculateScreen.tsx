@@ -39,7 +39,10 @@ const CalculateScreen = () => {
     const [ineligible, setIneligible] = useState(0);
 
     const goToNext = () => {
-        navigation.navigate('CalculateDone', { glass, clear, alu, color, hdpe, lpb, steel, other, ineli: ineligible, code });
+        navigation.navigate(
+            'CalculateDone' as never,
+            { glass, clear, alu, color, hdpe, lpb, steel, other, ineli: ineligible, code } as never
+        );
     };
 
     return (

@@ -19,15 +19,25 @@ export type userTypes = {
     userType: number;
     profileCheck: number;
     addressCheck: number;
+    businessCheck: number;
     userGender: number;
     payType: number;
+    businessName: string | null;
+    abn: string | null;
+    businessType: number;
+    paypal: string | null;
+    bankNumber: string | null;
+    bankName: string | null;
+    snsType: number;
 };
 
 export type addressListType = {
     idx: number;
     address: string;
+    addressMore: string;
     lat: number;
     lot: number;
     main: number;
     moreText: string;
+    postcode: null | string;
 };
